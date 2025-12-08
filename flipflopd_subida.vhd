@@ -7,7 +7,7 @@ entity flipflod_subida is port (
     Preset : in  STD_LOGIC;
     Enable : in  STD_LOGIC;
     CLK   : in  STD_LOGIC;
-    Q     : out STD_LOGIC;
+    Q     : out STD_LOGIC
 );
 end flipflod_subida;
 

@@ -17,7 +17,7 @@ architecture arq of mux32x32 is
         port (
             E : in std_logic_vector(0 to 31);
             Sel : in std_logic_vector(4 downto 0);
-            Saida : out std_logic
+            S : out std_logic
         );
     end component;
     
@@ -33,7 +33,7 @@ begin
     	mux : mux32 port map (
         	E => matriz_invertida(i),
             Sel => Sel,
-            Saida => Saida(i)
+            S => Saida(i)
         );
     end generate;
 end arq;
