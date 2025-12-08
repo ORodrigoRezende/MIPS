@@ -73,5 +73,6 @@ elsif Opcode = "000010" then
   Jump     <= '1';
   MemRead  <= '0';
 end if;
+end process;
 
 end behavioral;

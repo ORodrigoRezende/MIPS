@@ -21,11 +21,10 @@ ARCHITECTURE behavior OF MIPS_32bits_tb IS
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT MIPS_32bits
-    PORT(
+    COMPONENT mips PORT(
          DebugEndereco : IN  std_logic_vector(31 downto 0);
          DebugPalavra : OUT  std_logic_vector(31 downto 0);
-         Clock : IN  std_logic;
+         Clk : IN  std_logic;
          Inicializar : IN  std_logic
         );
     END COMPONENT;
@@ -46,10 +45,10 @@ ARCHITECTURE behavior OF MIPS_32bits_tb IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: MIPS_32bits PORT MAP (
+   uut: mips PORT MAP (
           DebugEndereco => DebugEndereco,
           DebugPalavra => DebugPalavra,
-          Clock => Clock,
+          Clk => Clock,
           Inicializar => Inicializar
         );
 
@@ -88,7 +87,9 @@ BEGIN
 			DebugEndereco <= std_logic_vector(to_unsigned(i*4,32));
 			wait for Clock_period;
 		end loop;
-
+      
+      -- Para simulação EDA PLAYGROUND
+      assert false report "Fim da Simulação" severity failure;
       wait;
    end process;
 

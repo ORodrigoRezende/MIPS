@@ -1,9 +1,12 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+library work;
+use work.tipo.all;
+
 entity mips is port(
-    Clk,Inicializacao : in STD_LOGIC;
-    DebugEndereco : out STD_LOGIC_VECTOR(31 downto 0);
+    Clk,Inicializar : in STD_LOGIC;
+    DebugEndereco : in STD_LOGIC_VECTOR(31 downto 0);
     DebugPalavra : out STD_LOGIC_VECTOR(31 downto 0)
 );
 
@@ -37,11 +40,11 @@ architecture Behavioral of mips is
     );
     end component;
 
-    component mux2_32b  is port(
-    A : in STD_LOGIC_VECTOR(0 TO 31);
-    B : in STD_LOGIC_VECTOR(0 TO 31);
-    SEL : in STD_LOGIC;
-    S : out STD_LOGIC
+    component mux2_32b is port(
+        A : in STD_LOGIC_VECTOR(31 downto 0);
+        B : in STD_LOGIC_VECTOR(31 downto 0);
+        SEL : in STD_LOGIC;
+        S : out STD_LOGIC_VECTOR(31 downto 0)
     );
     end component;
 
@@ -84,6 +87,20 @@ architecture Behavioral of mips is
     );
     end component;
 
+    component unidadecontrole is port (
+    Opcode : in  STD_LOGIC_VECTOR (5 downto 0);
+    RegDst : out STD_LOGIC;
+    ALUSrc : out STD_LOGIC;
+    MemtoReg : out STD_LOGIC;
+    RegWrite : out STD_LOGIC;
+    MemRead : out STD_LOGIC;
+    MemWrite : out STD_LOGIC;
+    Branch : out STD_LOGIC;
+    ALUOp : out STD_LOGIC_VECTOR (1 downto 0);
+    Jump : out STD_LOGIC
+    );
+    end component;
+
     component memDados is port (
 		DadoLido : out std_logic_vector (31 downto 0);
 		DadoEscrita : in std_logic_vector (31 downto 0);
@@ -96,7 +113,7 @@ architecture Behavioral of mips is
     );
     end component;
 
-    component menInstrucao is port (
+    component memInstrucoes is port (
 		Endereco : in std_logic_vector(31 downto 0);
 		Palavra : out std_logic_vector(31 downto 0)
 	);
@@ -111,13 +128,13 @@ begin
     -- PC
     PC1 : pc port map (
         D => SMUX5,
-        Inicializacao => Inicializacao,
+        Inicializacao => Inicializar,
         CLK => Clk,
         S => SPC
     );
 
     --Memoria Intrução 
-    MemInstrucao1 : menInstrucao port map (
+    MemInstrucao1 : memInstrucoes port map (
         Endereco => SPC,
         Palavra => SMenInstrucao
     );
@@ -197,7 +214,7 @@ begin
     );
 
     -- Unidade de controle principal
-    UnidadeDeControle1 : unidadedecontrole port map (
+    UnidadeDeControle1 : unidadecontrole port map (
         OpCode => SMenInstrucao(31 downto 26),
         RegDst => SRegDst,
         RegWrite => SRegWrite,
