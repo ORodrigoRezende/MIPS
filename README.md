@@ -1,3 +1,5 @@
+University project to develop a MIPS processor using VHDL to calculate the first 10 numbers of the Fibonacci sequence.
+
 Sinal | Nome
 ---|---
 1 | SPC

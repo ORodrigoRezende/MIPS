@@ -10,6 +10,15 @@
 -- VHDL Test Bench Created by ISE for module: MIPS_32bits
 -- 
 --------------------------------------------------------------------------------
+
+
+
+-- Teste para rodar no software ISE
+
+
+--------------------------------------------------------------------------------
+
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
@@ -89,7 +98,7 @@ BEGIN
 		end loop;
       
       -- Para simulação EDA PLAYGROUND
-      assert false report "Fim da Simulação" severity failure;
+      --assert false report "Fim da Simulação" severity failure;
       wait;
    end process;
 

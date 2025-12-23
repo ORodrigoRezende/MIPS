@@ -63,7 +63,7 @@ architecture Behavioral of mips is
     component pc is port(
     D: in STD_LOGIC_VECTOR(31 downto 0);
     Inicializacao,CLK: in STD_LOGIC;
-    S : out STD_LOGIC_VECTOR(31 downto 0);
+    S : out STD_LOGIC_VECTOR(31 downto 0)
     );
     end component;
 
